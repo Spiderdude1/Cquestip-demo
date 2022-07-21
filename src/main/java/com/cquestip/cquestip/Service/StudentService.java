@@ -130,6 +130,11 @@ public class StudentService {
             throw new IllegalStateException("Student does not exist");
         }
 
+        if (studentOptional.get().getDemographics().size() == 1)
+        {
+            throw new IllegalStateException("Demographic already exists");
+        }
+
         studentOptional.get().getDemographics().add(demographic);
 
         //studentOptional.get().getDemographic().setDemographic(demographic);
