@@ -9,6 +9,8 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Demographic implements Serializable {
+
+    private int demographicid;
     private String gender;
     private String race;
     private boolean disability;

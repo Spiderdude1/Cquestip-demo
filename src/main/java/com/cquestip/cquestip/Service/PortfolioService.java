@@ -156,6 +156,7 @@ public class PortfolioService {
         }
 
 
+
         if(target != null) {
             for (Experience ex : experience) {
                 target.getExperiences().add(ex);
@@ -165,6 +166,56 @@ public class PortfolioService {
 
 
         studentRepository.save(studentOptional.get());
+
+    }
+
+    public void updateExperience(long id, long educationId, Experience experience) {
+
+        Optional<Student> studentOptional = studentRepository.findById(id);
+
+        System.out.println(experience.getExperienceid());
+
+        if(!studentOptional.isPresent()){
+            throw new IllegalStateException("Student does not exist");
+        }
+
+        List<Education> educations = studentOptional.get().getEducations();
+        Education target = null;
+        for (Education education : educations) {
+            if(education.getEducationid() == educationId) {
+                target = education;
+                break;
+            }
+        }
+
+        if (target == null) {
+            throw new IllegalStateException("The specified Education does not exist");
+        }
+
+        List<Experience> experiences = target.getExperiences();
+        //System.out.println(experiences.size());
+//        System.out.println(experiences.get(0).getExperienceid());
+
+        Experience experienceTargeted = null;
+        for(Experience experienceTarget : experiences) {
+            if (experienceTarget.getExperienceid() == experience.getExperienceid()) {
+
+                experienceTargeted = experienceTarget;
+                break;
+            }
+            System.out.println(experienceTarget.getExperienceid());
+
+        }
+
+//        if (experienceTargeted == null) {
+//            throw new IllegalStateException("The specified Experience does not exist");
+//        }
+
+        experienceTargeted.setName(experience.getName());
+        experienceTargeted.setDescription(experience.getDescription());
+
+        studentRepository.save(studentOptional.get());
+
 
     }
 }

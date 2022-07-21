@@ -17,6 +17,8 @@ import java.time.LocalDate;
 
 public class Experience implements Serializable {
 
+    @Column(updatable = false)
+    private int experienceid;
 
     private String name;
 //    private LocalDate date;

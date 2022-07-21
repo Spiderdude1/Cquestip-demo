@@ -43,8 +43,15 @@ public class PortfolioController {
     }
 
     @PostMapping("{studentId}/education/{educationId}")
-    public void addExperience(@PathVariable("studentId") long id, @PathVariable("educationId") long educationId ,@RequestBody List<Experience> Experience) {
+    public void addExperience(@PathVariable("studentId") long id, @PathVariable("educationId") long educationId,
+                              @RequestBody List<Experience> Experience) {
         portfolioService.addExperience(id, Experience, educationId);
+    }
+
+    @PutMapping("{studentId}/experience/{educationId}")
+    public void updateExperience(@PathVariable("studentId") long id, @PathVariable("educationId") long educationId,
+                                 @RequestBody Experience experience) {
+        portfolioService.updateExperience(id, educationId, experience);
     }
 
     @DeleteMapping(path = "{studentId}/education/{educationId}")

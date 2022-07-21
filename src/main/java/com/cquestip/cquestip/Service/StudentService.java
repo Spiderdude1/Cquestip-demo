@@ -74,29 +74,19 @@ public class StudentService {
         }
 
         System.out.println(demographic);
-
+        Demographic demographic1 = demographic.get(0);
         for(Demographic demos : demographic) {
-            student.getDemographics().add(demos);
+
+            if (demos.getDemographicid() == demographic1.getDemographicid() )
+            {
+                student.getDemographics().get(0).setRace(demographic1.getRace());
+                student.getDemographics().get(0).setGender(demographic1.getGender());
+                student.getDemographics().get(0).setDisability(demographic1.getDisability());
+
+
+            }
+//            student.getDemographics().add(demos);
         }
-
-
-
-        if(demographic != null)
-        {
-
-
-
-
-//            student.getDemographic().setDisability(demographic.getDisability());
-
-//            student.getDemographic().setGender(demographic.getGender());
-//            student.getDemographic().setRace(demographic.getRace());
-//
-
-
-
-        }
-
 
         studentRepository.save(student);
 
@@ -139,6 +129,8 @@ public class StudentService {
         {
             throw new IllegalStateException("Student does not exist");
         }
+
+        studentOptional.get().getDemographics().add(demographic);
 
         //studentOptional.get().getDemographic().setDemographic(demographic);
 
