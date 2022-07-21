@@ -4,9 +4,12 @@ import com.cquestip.cquestip.Domain.EducationDomain.Education;
 import com.cquestip.cquestip.Domain.HashMapConverter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import lombok.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 
 
 import javax.persistence.*;
@@ -25,6 +28,7 @@ import java.util.Map;
 @Getter
 @Setter
 //@JsonIgnoreProperties({"appUserRole"} )
+@TypeDef(name="jsonb", typeClass = JsonBinaryType.class)
 public class Student {
 
     @Id
@@ -49,11 +53,14 @@ public class Student {
     @Transient
     private Integer age;
 
-    @Convert(converter = HashMapConverter.class)
-    private Map<String, Object> demographic;
+    @Type(type = "jsonb")
+    @Column(columnDefinition = "jsonb")
+    private Demographic demographic = new Demographic();
+
+//    @Convert(converter = HashMapConverter.class)
+//    private Map<String, Object> demographic;
 
     @OneToMany(targetEntity = Education.class, cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-
     @JoinColumn(name= "Student_fk", referencedColumnName = "UserID")
     public List<Education> educations;
 

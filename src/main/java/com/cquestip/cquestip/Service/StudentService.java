@@ -1,6 +1,7 @@
 package com.cquestip.cquestip.Service;
 
 import com.cquestip.cquestip.Domain.EducationDomain.Education;
+import com.cquestip.cquestip.Domain.UserDomain.Demographic;
 import com.cquestip.cquestip.Domain.UserDomain.Student;
 import com.cquestip.cquestip.Repository.EducationRepository;
 import com.cquestip.cquestip.Repository.StudentRepository;
@@ -49,7 +50,8 @@ public class StudentService {
     }
 
     @Transactional
-    public void updateStudent(long id, String first, String last, String middle, LocalDate dob, String email) {
+    public void updateStudent(long id, String first, String last, String middle, LocalDate dob, String email,
+                              Demographic demographic) {
        Student student = studentRepository.findById(id).orElseThrow(() -> new IllegalStateException
                 ("Student with the stated ID does not exist"));
 
@@ -71,6 +73,23 @@ public class StudentService {
             student.setEmail(email);
         }
 
+        System.out.println(demographic);
+
+        if(demographic != null)
+        {
+
+            student.getDemographic().setDisability(demographic.getDisability());
+
+//            student.getDemographic().setGender(demographic.getGender());
+//            student.getDemographic().setRace(demographic.getRace());
+//
+
+
+
+        }
+
+
+        studentRepository.save(student);
 
     }
 
@@ -103,7 +122,18 @@ public class StudentService {
     }
 
 
+    public void addDemographic(long id, Demographic demographic) {
 
+        Optional<Student> studentOptional = studentRepository.findById(id);
 
+        if(!studentOptional.isPresent())
+        {
+            throw new IllegalStateException("Student does not exist");
+        }
 
+        studentOptional.get().getDemographic().setDemographic(demographic);
+
+        studentRepository.save(studentOptional.get());
+
+    }
 }

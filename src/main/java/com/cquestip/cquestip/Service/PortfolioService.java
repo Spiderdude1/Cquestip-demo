@@ -1,6 +1,7 @@
 package com.cquestip.cquestip.Service;
 
 import com.cquestip.cquestip.Domain.EducationDomain.Education;
+import com.cquestip.cquestip.Domain.EducationDomain.Experience;
 import com.cquestip.cquestip.Domain.UserDomain.Student;
 import com.cquestip.cquestip.Repository.EducationRepository;
 import com.cquestip.cquestip.Repository.StudentRepository;
@@ -8,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.EditorKit;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ListIterator;
@@ -77,7 +77,7 @@ public class PortfolioService {
         List<Education> educations = studentOptional.get().getEducations();
         Education target = null;
         for (Education education : educations) {
-            if(education.getId() == educationId) {
+            if(education.getEducationid() == educationId) {
 
                 target = education;
                // education.setInstituteName(instituteName);
@@ -87,7 +87,7 @@ public class PortfolioService {
 
         if(target != null && instituteName != null){
 
-            target.setInstituteName(instituteName);
+            target.setInstitutename(instituteName);
         }
 
         if(target != null && gpa != null)
@@ -97,12 +97,12 @@ public class PortfolioService {
 
         if(target != null && date != null)
         {
-            target.setDate(date);
+            target.setDatejoined(date);
         }
 
         if(target != null && instituteLevel != null)
         {
-            target.setInstituteLevel(instituteLevel);
+            target.setInstitutelevel(instituteLevel);
         }
 
         studentRepository.save(studentOptional.get());
@@ -123,7 +123,7 @@ public class PortfolioService {
         List<Education> educations = studentOptional.get().getEducations();
         Education target = null;
         for (Education education : educations) {
-            if(education.getId() == educationId) {
+            if(education.getEducationid() == educationId) {
 
                 target = education;
                 break;
@@ -136,6 +136,37 @@ public class PortfolioService {
 
         }
 
+
+    }
+
+    public void addExperience(long id, List<Experience> experience, long educationid) {
+        Optional<Student> studentOptional = studentRepository.findById(id);
+
+        if(!studentOptional.isPresent()){
+            throw new IllegalStateException("Student does not exist");
+        }
+
+        List<Education> educations = studentOptional.get().getEducations();
+        Education target = null;
+        for (Education education : educations) {
+            if(education.getEducationid() == educationid) {
+                target = education;
+                break;
+            }
+        }
+
+        //target.getExperiences().putAll(experience);
+
+        if(target != null) {
+            for (Experience ex : experience) {
+                //  System.out.println(ex.toString());
+                target.getExperiences().add(ex);
+            }
+        }
+
+
+
+        studentRepository.save(studentOptional.get());
 
     }
 }

@@ -1,22 +1,26 @@
 package com.cquestip.cquestip.Domain.EducationDomain;
 
 
-import com.cquestip.cquestip.Domain.HashMapConverter;
+import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table
+@Table(name = "education")
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@TypeDef(name="jsonb", typeClass = JsonBinaryType.class)
 public class Education {
     @Id
     @SequenceGenerator(
@@ -30,20 +34,25 @@ public class Education {
             generator = "Education_Sequence"
 
     )
-    private long id;
-    private String instituteName;
+    private long educationid;
+    private String institutename;
+
     private Double gpa;
-    private LocalDate date;
+    private LocalDate datejoined;
 
-    private String instituteLevel;
+    private String institutelevel;
 
-    @Convert(converter = HashMapConverter.class)
-    private Map<String, Object> experiences;
+    @Type(type = "jsonb")
+    @Column(columnDefinition = "jsonb")
+    private List<Experience> experiences = new ArrayList<Experience>();
 
-    public Education(String instituteName, Double gpa, LocalDate date, String instituteLevel) {
-        this.instituteName = instituteName;
+//    @Convert(converter = HashMapConverter.class)
+//    private Map<String, Object> experiences;
+
+    public Education(String institutename, Double gpa, LocalDate date, String instituteLevel) {
+        this.institutename = institutename;
         this.gpa = gpa;
-        this.date = date;
-        this.instituteLevel = instituteLevel;
+        this.datejoined = date;
+        this.institutelevel = instituteLevel;
     }
 }

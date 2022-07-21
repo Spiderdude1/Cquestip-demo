@@ -1,6 +1,7 @@
 package com.cquestip.cquestip.Controller;
 
 import com.cquestip.cquestip.Domain.EducationDomain.Education;
+import com.cquestip.cquestip.Domain.UserDomain.Demographic;
 import com.cquestip.cquestip.Domain.UserDomain.Student;
 import com.cquestip.cquestip.Service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +40,9 @@ public class StudentController {
                               @RequestParam(required = false) String last,
                               @RequestParam(required = false) String middle,
                               @RequestParam(required = false) LocalDate dob,
-                              @RequestParam(required = false) String email){
-        studentService.updateStudent(id, first, last, middle, dob, email);
+                              @RequestParam(required = false) String email,
+                              @RequestBody(required = false) Demographic demographic){
+        studentService.updateStudent(id, first, last, middle, dob, email, demographic);
     }
 
     @PostMapping()
@@ -49,7 +51,12 @@ public class StudentController {
         studentService.addStudent(student);
     }
 
+    @PostMapping(path = "{studentId}")
+    public void addDemographic(@PathVariable("studentId") long id, @RequestBody Demographic demographic) {
 
+        studentService.addDemographic(id, demographic);
+
+    }
     @DeleteMapping(path = "{studentId}")
     public void deleteStudent(@PathVariable("studentId") long id)
     {

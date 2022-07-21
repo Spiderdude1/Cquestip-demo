@@ -1,6 +1,7 @@
 package com.cquestip.cquestip.Controller;
 
 import com.cquestip.cquestip.Domain.EducationDomain.Education;
+import com.cquestip.cquestip.Domain.EducationDomain.Experience;
 import com.cquestip.cquestip.Service.PortfolioService;
 import com.cquestip.cquestip.Service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(path = "api/v1/student/portfolio")
@@ -38,6 +40,11 @@ public class PortfolioController {
     @PostMapping("{studentId}")
     public void addEducation(@PathVariable("studentId") long id, @RequestBody List<Education> education) {
         portfolioService.addEducation(id, education);
+    }
+
+    @PostMapping("{studentId}/education/{educationId}")
+    public void addExperience(@PathVariable("studentId") long id, @PathVariable("educationId") long educationId ,@RequestBody List<Experience> Experience) {
+        portfolioService.addExperience(id, Experience, educationId);
     }
 
     @DeleteMapping(path = "{studentId}/education/{educationId}")
