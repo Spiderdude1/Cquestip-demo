@@ -3,6 +3,7 @@ package com.cquestip.cquestip.Domain.EducationDomain;
 
 import lombok.*;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.lang.invoke.LambdaConversionException;
 import java.time.LocalDate;
@@ -13,7 +14,9 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class Experience implements Serializable {
+
 
     private String name;
 //    private LocalDate date;

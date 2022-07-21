@@ -51,7 +51,7 @@ public class StudentService {
 
     @Transactional
     public void updateStudent(long id, String first, String last, String middle, LocalDate dob, String email,
-                              Demographic demographic) {
+                              List<Demographic> demographic) {
        Student student = studentRepository.findById(id).orElseThrow(() -> new IllegalStateException
                 ("Student with the stated ID does not exist"));
 
@@ -75,10 +75,19 @@ public class StudentService {
 
         System.out.println(demographic);
 
+        for(Demographic demos : demographic) {
+            student.getDemographics().add(demos);
+        }
+
+
+
         if(demographic != null)
         {
 
-            student.getDemographic().setDisability(demographic.getDisability());
+
+
+
+//            student.getDemographic().setDisability(demographic.getDisability());
 
 //            student.getDemographic().setGender(demographic.getGender());
 //            student.getDemographic().setRace(demographic.getRace());
@@ -131,7 +140,7 @@ public class StudentService {
             throw new IllegalStateException("Student does not exist");
         }
 
-        studentOptional.get().getDemographic().setDemographic(demographic);
+        //studentOptional.get().getDemographic().setDemographic(demographic);
 
         studentRepository.save(studentOptional.get());
 

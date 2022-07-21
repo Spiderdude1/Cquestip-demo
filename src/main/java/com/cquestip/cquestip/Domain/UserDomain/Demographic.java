@@ -18,11 +18,5 @@ public class Demographic implements Serializable {
         return disability;
     }
 
-    public void setDemographic(Demographic demographic)
-    {
-        demographic.setGender(demographic.getGender());
 
-        demographic.setRace(demographic.getRace());
-        demographic.setDisability(demographic.getDisability());
-    }
 }

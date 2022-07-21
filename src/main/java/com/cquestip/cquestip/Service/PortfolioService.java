@@ -80,10 +80,10 @@ public class PortfolioService {
             if(education.getEducationid() == educationId) {
 
                 target = education;
-               // education.setInstituteName(instituteName);
                 break;
             }
         }
+
 
         if(target != null && instituteName != null){
 
@@ -155,11 +155,9 @@ public class PortfolioService {
             }
         }
 
-        //target.getExperiences().putAll(experience);
 
         if(target != null) {
             for (Experience ex : experience) {
-                //  System.out.println(ex.toString());
                 target.getExperiences().add(ex);
             }
         }

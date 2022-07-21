@@ -15,10 +15,7 @@ import org.hibernate.annotations.TypeDef;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Entity
 @Table
@@ -55,7 +52,8 @@ public class Student {
 
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")
-    private Demographic demographic = new Demographic();
+    private List<Demographic> demographics = new ArrayList<Demographic>();
+//    private Demographic demographic = new Demographic();
 
 //    @Convert(converter = HashMapConverter.class)
 //    private Map<String, Object> demographic;

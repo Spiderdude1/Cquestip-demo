@@ -41,7 +41,7 @@ public class StudentController {
                               @RequestParam(required = false) String middle,
                               @RequestParam(required = false) LocalDate dob,
                               @RequestParam(required = false) String email,
-                              @RequestBody(required = false) Demographic demographic){
+                              @RequestBody(required = false) List<Demographic> demographic){
         studentService.updateStudent(id, first, last, middle, dob, email, demographic);
     }
 
