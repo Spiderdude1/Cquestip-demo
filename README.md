@@ -1,1 +1,0 @@
-# Cquestip-demo
