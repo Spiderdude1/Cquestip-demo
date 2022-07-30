@@ -28,10 +28,6 @@ public class StudentService {
     private EducationRepository educationRepository;
 
 
-
-
-
-
     public List<Student> getStudents() {
         return studentRepository.findAll();
     }
